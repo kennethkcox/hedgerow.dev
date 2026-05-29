@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Thicket — Runtime Security for AI Applications</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../hedgerow.css">
 <style>
 .problem-grid {
@@ -104,9 +110,7 @@
     <a href="demos.html">Live demos</a>
     <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact Sales</a>
   </div>
-  <button class="nav-hamburger" id="navToggle"
-    onclick="document.getElementById('navDrawer').classList.toggle('open');this.classList.toggle('open')"
-    aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
   <a href="index.html">Overview</a>
@@ -401,5 +405,6 @@
   </div>
 </footer>
 
+<script src="../nav.js" defer></script>
 </body>
 </html>
