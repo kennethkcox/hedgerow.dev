@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Rowan — Source Code Analysis for AI Security</title>
+<title>Rowan — AI/ML Security Analysis by Hedgerow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,27 +17,99 @@
   padding:8rem 0 7rem;
 }
 .rowan-hero h1 { color:#fff }
-.rowan-hero .hero-sub { color:rgba(255,255,255,.62); font-size:1.1rem; max-width:540px; margin-bottom:2.5rem }
+.rowan-hero .hero-sub {
+  font-family:'Inter',sans-serif; font-style:normal;
+  color:rgba(255,255,255,.62); font-size:1.1rem;
+  max-width:560px; margin-bottom:2.5rem; line-height:1.7;
+}
 .rowan-hero .section-label { color:rgba(255,255,255,.4) }
 
-.cap-grid {
+.pipeline-steps {
+  counter-reset:step;
+  display:flex; flex-direction:column; gap:0;
+  margin-top:2.5rem;
+}
+.pipeline-step {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:3rem 1fr;
+  gap:0 1.5rem;
+  position:relative;
+}
+.pipeline-step::before {
+  counter-increment:step;
+  content:counter(step);
+  display:flex; align-items:center; justify-content:center;
+  width:2.25rem; height:2.25rem;
+  border-radius:2px;
+  background:var(--navy); color:#fff;
+  font-size:.75rem; font-weight:700;
+  flex-shrink:0; align-self:flex-start;
+  margin-top:1.6rem;
+  position:relative; z-index:1;
+}
+.pipeline-step::after {
+  content:'';
+  position:absolute;
+  left:1.1rem; top:3.8rem; bottom:0;
+  width:1px; background:var(--border);
+}
+.pipeline-step:last-child::after { display:none }
+.step-body {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:6px; padding:1.4rem 1.5rem;
+  margin-bottom:1rem;
+}
+.step-body h3 { font-size:.95rem; margin-bottom:.35rem }
+.step-body p  { font-size:.875rem; margin:0; line-height:1.65 }
+
+.class-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:1.25rem; margin-top:2rem;
 }
-.cap-card {
+.class-card {
   background:var(--card); border:1px solid var(--border);
-  border-radius:6px; padding:1.75rem;
+  border-radius:6px; padding:1.5rem;
 }
-.cap-card h3 { font-size:1.05rem; margin-bottom:.4rem }
-.cap-card p  { font-size:.9rem; margin:0 }
+.class-card h3 { font-size:.95rem; margin-bottom:.35rem }
+.class-card p  { font-size:.875rem; margin:0 }
 
-.coming-soon {
-  display:inline-block;
-  font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
-  padding:.2rem .6rem; border-radius:3px;
-  background:rgba(90,122,85,.15); color:var(--sage);
-  margin-bottom:1.25rem;
+.vs-block {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.25rem; margin-top:2rem;
+}
+.vs-col { border-radius:6px; padding:1.75rem }
+.vs-col.theirs { background:var(--surface); border:1px solid var(--border) }
+.vs-col.ours   { background:var(--navy); color:#fff }
+.vs-col.ours h3 { color:#fff }
+.vs-col.ours p  { color:rgba(255,255,255,.6) }
+.vs-col.ours li { color:rgba(255,255,255,.6) }
+.vs-col.theirs h3 { color:var(--navy) }
+.vs-col ul { padding-left:1.1rem; margin-top:.75rem }
+.vs-col ul li { font-size:.875rem; margin-bottom:.4rem; line-height:1.6 }
+.vs-label {
+  font-size:.63rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:.875rem; display:block;
+}
+.vs-col.theirs .vs-label { color:var(--faint) }
+.vs-col.ours   .vs-label { color:rgba(255,255,255,.35) }
+
+.chain-list { margin-top:1.5rem; display:flex; flex-direction:column; gap:.875rem }
+.chain-item {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:6px; padding:1.25rem 1.5rem;
+}
+.chain-item p { font-size:.875rem; margin:0 }
+.chain-arrow {
+  font-size:.7rem; font-weight:600; letter-spacing:.04em;
+  color:var(--sage); margin:0 .4rem;
+}
+
+.lang-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.25rem }
+
+@media(max-width:640px){
+  .vs-block { grid-template-columns:1fr }
 }
 </style>
 </head>
@@ -50,14 +122,14 @@
     <span class="logo-tag">Rowan</span>
   </a>
   <div class="nav-links">
-    <a href="index.html" class="active">Rowan</a>
+    <a href="index.html" class="active">Overview</a>
     <a href="../thicket/index.html">Thicket</a>
     <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact</a>
   </div>
   <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="index.html">Rowan</a>
+  <a href="index.html">Overview</a>
   <a href="../thicket/index.html">Thicket</a>
   <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Contact →</a>
 </div>
@@ -66,46 +138,163 @@
 <section class="rowan-hero">
   <div class="wrap">
     <div class="section-label">Rowan by Hedgerow</div>
-    <h1>Find vulnerabilities<br>before deployment.</h1>
-    <p class="hero-sub">Source code analysis built for AI applications. Taint tracking, supply chain analysis, and SARIF output for CI pipelines — understanding the attack surfaces that general-purpose SAST tools miss.</p>
+    <h1>Find the vulnerabilities<br>pattern matching misses.</h1>
+    <p class="hero-sub">Rowan combines deterministic graph analysis, cross-file taint propagation, and LLM-based exploit reasoning to surface security vulnerabilities in AI and ML codebases — the attack surfaces traditional SAST tools cannot express.</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap">
       <a href="mailto:hello@hedgerow.dev" class="btn" style="background:#fff;color:var(--navy)">Request early access</a>
+      <a href="#how-it-works" class="btn" style="background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25)">See how it works →</a>
     </div>
   </div>
 </section>
 
-<!-- ── What Rowan covers ── -->
+<!-- ── The problem with pattern-based SAST ── -->
 <section style="background:var(--bg)">
   <div class="wrap">
-    <div class="section-label">Capabilities</div>
-    <h2>AI-aware static analysis.</h2>
-    <p class="section-intro">General-purpose SAST tools don't understand the AI stack. Rowan was built specifically for it — tracking taint flows through LLM SDKs, agent frameworks, and model loading paths.</p>
+    <div class="section-label">The limitation</div>
+    <h2>Pattern matching cannot follow data.</h2>
+    <p class="section-intro">Traditional SAST tools flag dangerous function calls. They cannot determine whether the arguments are attacker-controlled. For AI and ML code, that distinction is everything.</p>
 
-    <div class="cap-grid">
-      <div class="cap-card">
-        <h3>AI-native taint tracking</h3>
-        <p>Follows user-controlled data through LangChain, LlamaIndex, and direct LLM SDK calls — identifying paths from model output to dangerous execution.</p>
+    <div class="vs-block">
+      <div class="vs-col theirs">
+        <span class="vs-label">Pattern-based SAST</span>
+        <h3>Sees the call. Misses the context.</h3>
+        <ul>
+          <li>Cannot distinguish <code>requests.get(user_url)</code> from <code>requests.get(api_url)</code></li>
+          <li>Cannot trace a filename through three function boundaries into a model loader</li>
+          <li>Cannot connect an SSRF response body to a downstream deserialization sink</li>
+          <li>Produces hundreds of findings per repository — the majority noise</li>
+        </ul>
       </div>
-      <div class="cap-card">
-        <h3>Supply chain analysis</h3>
-        <p>Scans dependencies for typosquatted AI packages, checks model provenance signals, and generates CycloneDX SBOMs for compliance workflows.</p>
+      <div class="vs-col ours">
+        <span class="vs-label">Rowan</span>
+        <h3>Traces the data. Reasons about exploitability.</h3>
+        <ul>
+          <li>Tracks attacker-controlled data from entry point to dangerous sink across file and function boundaries</li>
+          <li>Only surfaces findings with a confirmed taint path — no path, no finding</li>
+          <li>LLM reasoning operates on graph-filtered code slices, not raw source</li>
+          <li>Focused output — a small, dense set a reviewer can work through</li>
+        </ul>
       </div>
-      <div class="cap-card">
-        <h3>Dangerous sink detection</h3>
-        <p>Finds user-controlled inputs reaching command execution, deserialization, SSRF-prone HTTP calls, file access, and AI orchestration entry points.</p>
+    </div>
+
+    <div class="callout" style="margin-top:2rem">
+      <p>Pattern-based SAST and Rowan are complementary, not competitive. Pattern tools have breadth. Rowan has depth on the findings that matter most.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ── -->
+<section style="background:var(--surface)" id="how-it-works">
+  <div class="wrap">
+    <div class="section-label">Pipeline</div>
+    <h2>Graph analysis, taint propagation,<br>then LLM reasoning.</h2>
+    <p class="section-intro">Five stages in sequence. The LLM never sees raw source — only the code slices that survive the deterministic graph and taint filters.</p>
+
+    <div class="pipeline-steps">
+      <div class="pipeline-step">
+        <div class="step-body">
+          <h3>AST &amp; Call Graph Construction</h3>
+          <p>tree-sitter builds call graphs, module dependency graphs, and entry-point enumerations across the codebase. Attacker-reachable surfaces — HTTP parameters, CLI arguments, file reads, environment variables — are identified and ranked by blast radius and privilege boundary.</p>
+        </div>
       </div>
-      <div class="cap-card">
-        <h3>SARIF output</h3>
-        <p>Results integrate directly with GitHub Code Scanning, VS Code, JetBrains, and any CI pipeline that accepts the standard SARIF format.</p>
+      <div class="pipeline-step">
+        <div class="step-body">
+          <h3>Taint Propagation</h3>
+          <p>Attacker-controllable data is traced through function boundaries to dangerous sinks. Only sink locations with a confirmed taint path advance. Everything else is discarded before the LLM is involved.</p>
+        </div>
       </div>
-      <div class="cap-card">
-        <h3>Thicket runtime integration</h3>
-        <p>Static findings feed directly into Thicket's runtime engine — code paths Rowan flags automatically receive elevated monitoring at runtime.</p>
+      <div class="pipeline-step">
+        <div class="step-body">
+          <h3>Pre-analysis &amp; Ranking</h3>
+          <p>Blast radius estimation, privilege boundary analysis, and entry-point exposure scoring. Candidates are ordered by likely severity before reasoning begins.</p>
+        </div>
       </div>
-      <div class="cap-card">
-        <h3>Multi-language support</h3>
-        <p>Python-first, with JavaScript support. Covers FastAPI, Flask, Django, Gradio, Streamlit, and the major AI framework surface areas.</p>
+      <div class="pipeline-step">
+        <div class="step-body">
+          <h3>Candidate Filtering</h3>
+          <p>Deterministic AST-level pre-filters remove known false-positive patterns — safe API variants, internally-trusted data flows, defensive code incorrectly flagged as a sink — before any LLM call is made.</p>
+        </div>
       </div>
+      <div class="pipeline-step">
+        <div class="step-body">
+          <h3>LLM Exploit Reasoning</h3>
+          <p>Each surviving candidate is evaluated by an LLM that receives only the graph-filtered code slice — not the full file, not the full repository. It produces a hypothesis, a confidence score, and an exploit description.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Vulnerability classes ── -->
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Coverage</div>
+    <h2>Built around the AI/ML attack surface.</h2>
+    <p class="section-intro">The AI and ML ecosystem is built on model-loading formats that are fundamentally code-execution paths — with virtually no integrity verification between download and load. Rowan is designed around this reality.</p>
+
+    <div class="class-grid">
+      <div class="class-card">
+        <h3>Deserialization</h3>
+        <p>The dominant vulnerability class in AI/ML. Model-loading formats — torch.load, joblib, unsafe YAML loaders, and similar serialization libraries — are code-execution primitives. Rowan traces user-controlled data to deserialization sinks across supply chain, API, and checkpoint-loading paths.</p>
+      </div>
+      <div class="class-card">
+        <h3>Code Injection</h3>
+        <p>Dynamic evaluation of user-supplied expressions, agent-generated code, and HTTP-body payloads reaching execution contexts. Covers unauthenticated and authenticated surfaces, with blast radius scored separately.</p>
+      </div>
+      <div class="class-card">
+        <h3>SSRF</h3>
+        <p>User-controlled URLs reaching outbound HTTP calls, including redirect-bypass chains. Particularly relevant to RAG pipelines, model-fetching infrastructure, and embedding services that retrieve remote content.</p>
+      </div>
+      <div class="class-card">
+        <h3>Command Injection</h3>
+        <p>Shell invocations constructed from attacker-controllable data. Rowan distinguishes genuinely injectable patterns from safe subprocess usage — a distinction pattern-based scanners cannot make reliably.</p>
+      </div>
+      <div class="class-card">
+        <h3>Path Traversal / LFI</h3>
+        <p>User-controlled file paths reaching read, write, or execution operations. Filtered carefully to separate genuine traversal risk from the large volume of safe variable-path patterns common in ML codebases.</p>
+      </div>
+      <div class="class-card">
+        <h3>Multi-step exploit chains</h3>
+        <p>Supply-chain paths where a user-controlled identifier triggers a download with no integrity check, then unsafe loading. SSRF-to-RCE chains. File-write-to-command-injection sequences. Single-step scanners miss these entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Multi-step chains ── -->
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-label">Exploit chains</div>
+    <h2>The attacks that require connecting the dots.</h2>
+    <p class="section-intro">The most dangerous vulnerabilities in AI infrastructure are multi-hop chains that cross module boundaries, services, and trust levels. Pattern-based tools see one step at a time and miss the chain entirely.</p>
+
+    <div class="chain-list">
+      <div class="chain-item">
+        <p><strong>Supply chain → unsafe load</strong><span class="chain-arrow">→</span>User-controlled repository identifier<span class="chain-arrow">→</span>Download with no integrity check<span class="chain-arrow">→</span>Model loaded via unsafe deserializer<span class="chain-arrow">→</span>Arbitrary code execution</p>
+      </div>
+      <div class="chain-item">
+        <p><strong>SSRF to RCE</strong><span class="chain-arrow">→</span>User-controlled URL<span class="chain-arrow">→</span>Outbound HTTP request<span class="chain-arrow">→</span>Response body written to disk<span class="chain-arrow">→</span>Downstream unsafe load</p>
+      </div>
+      <div class="chain-item">
+        <p><strong>File write to command injection</strong><span class="chain-arrow">→</span>User-controlled path<span class="chain-arrow">→</span>Library writes file to attacker-chosen location<span class="chain-arrow">→</span>Downstream tool execution picks up that file</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Languages ── -->
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Language support</div>
+    <h2>Python-first. Expanding.</h2>
+    <p style="max-width:560px;color:var(--muted);line-height:1.7">Full taint propagation and call-graph analysis is available for Python — the primary language of the AI/ML ecosystem. Partial support for Go, C, C++, TypeScript, and JavaScript covers entry-point enumeration and AST-level analysis.</p>
+    <div class="lang-row">
+      <span class="chip" style="font-weight:600;color:var(--navy);border-color:var(--navy)">Python — full</span>
+      <span class="chip">Go</span>
+      <span class="chip">C</span>
+      <span class="chip">C++</span>
+      <span class="chip">TypeScript</span>
+      <span class="chip">JavaScript</span>
     </div>
   </div>
 </section>
@@ -113,9 +302,9 @@
 <!-- ── Early access ── -->
 <section style="background:var(--navy);padding:6rem 0;text-align:center">
   <div class="wrap">
-    <div class="coming-soon">Early access</div>
+    <div class="section-label" style="color:rgba(255,255,255,.35)">Early access</div>
     <h2 style="color:#fff;font-size:clamp(1.8rem,4vw,3rem)"><em>Rowan is in active development.</em></h2>
-    <p style="color:rgba(255,255,255,.6);max-width:480px;margin:1rem auto 2.5rem;font-size:1.05rem">We're onboarding a small number of early access customers now. If you're building AI applications and want to run Rowan against your codebase, get in touch.</p>
+    <p style="color:rgba(255,255,255,.6);max-width:500px;margin:1rem auto 2.5rem;font-size:1.05rem;line-height:1.7">We are onboarding a small number of early access customers. If you build or maintain AI infrastructure and want to run Rowan against your codebase, get in touch. A private research report and diligence pack are available under NDA.</p>
     <a href="mailto:hello@hedgerow.dev" class="btn" style="background:#fff;color:var(--navy);font-size:1rem;padding:.875rem 2.25rem">hello@hedgerow.dev</a>
   </div>
 </section>
@@ -125,7 +314,7 @@
   <div class="wrap">
     <div>
       <div class="footer-brand">Hedgerow</div>
-      <div class="footer-sub">Rowan — Source code analysis for AI security.</div>
+      <div class="footer-sub">Rowan — AI/ML security analysis.</div>
       <div class="footer-links" style="justify-content:flex-start">
         <a href="../index.html">Hedgerow</a>
         <a href="../thicket/index.html">Thicket</a>
