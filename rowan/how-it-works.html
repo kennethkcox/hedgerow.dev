@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>How Rowan Works &mdash; Four-Engine Architecture | Hedgerow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../hedgerow.css">
+<link rel="stylesheet" href="rowan.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span class="logo-word">Rowan</span><span class="logo-tag">by Hedgerow</span></a>
+  <div class="nav-links">
+    <a href="product.html">Product</a>
+    <a href="how-it-works.html" class="active">How it works</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html">Docs</a>
+    <a href="#" class="nav-sign-in">Sign in</a>
+    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Get Early Access</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="product.html">Product</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="benchmarks.html">Benchmarks</a>
+  <a href="docs.html">Docs</a>
+  <a href="#">Sign in</a>
+  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Get Early Access &rarr;</a>
+</div>
+
+<div class="rowan-page-header">
+  <div class="wrap">
+    <div class="section-label" style="color:rgba(255,255,255,.4)">Architecture</div>
+    <h1>The architecture behind the findings.</h1>
+    <p class="page-sub">Four engines run in parallel. Each targets a different class of vulnerability. Together they cover what no single approach can.</p>
+  </div>
+</div>
+
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Engine 1</div>
+    <h2>CodeGuard &mdash; Taint Analysis</h2>
+    <p class="section-intro">Constructs a call graph and control flow graph for your codebase, then traces data from sources to sinks across file and function boundaries.</p>
+    <div class="callout" style="margin-bottom:1.5rem">
+      <p>Most taint engines stop at the file boundary. CodeGuard follows taint through imports, function arguments, and return values &mdash; across your entire Python codebase. For Java, JavaScript, Go, and C#, it uses CFG-based taint within files.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card"><h3>What it finds</h3>
+        <ul style="padding-left:1.1rem;margin-top:.5rem;display:flex;flex-direction:column;gap:.4rem">
+          <li style="font-size:.875rem;color:var(--muted)">SSRF chains that start in an HTTP parameter and terminate in an outbound HTTP call four functions later</li>
+          <li style="font-size:.875rem;color:var(--muted)">Code injection where LLM output flows to <code>ev<!-- -->al()</code></li>
+          <li style="font-size:.875rem;color:var(--muted)">Unsafe deserialization where a user-controlled path reaches <code>torch.load()</code></li>
+          <li style="font-size:.875rem;color:var(--muted)">IDOR where a route handler reaches object-level data without a permission check</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Path-sensitive guards</h3>
+        <p>CodeGuard detects boolean guards &mdash; <code>if config.unsafe: return</code>, <code>if weights_only: ...</code> &mdash; and adjusts confidence accordingly. A sanitizer-wrapped path gets a lower score. A raw, unguarded path gets a high one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-label">Engine 2</div>
+    <h2>NeuroScan &mdash; Pattern Matching</h2>
+    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:1.25rem">Runs 125+ detection rules using tree-sitter AST parsing and regex matching against your source files.</p>
+    <div class="callout">
+      <p>Fast, language-agnostic, and comprehensive. No call graph required &mdash; rules fire against the AST directly. Catches hardcoded secrets, debug configurations, weak cryptography, missing security headers. CodeGuard provides depth; NeuroScan provides breadth.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Engine 3</div>
+    <h2>DepGuard &mdash; Supply Chain with Reachability</h2>
+    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:1.25rem">Parses your <code>requirements.txt</code>, <code>poetry.lock</code>, or <code>pyproject.toml</code>, queries the OSV vulnerability database, then builds a call graph from your entry points to determine whether vulnerable functions are reachable.</p>
+    <div class="callout red">
+      <p>A CVE in a package you import is only exploitable if your code calls the vulnerable function. DepGuard proves (or disproves) reachability before surfacing a finding. Unreachable CVEs are suppressed.</p>
+    </div>
+    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-top:1.5rem"><strong style="color:var(--text)">Entry points tracked:</strong> HTTP handlers, CLI commands, scheduled tasks, and plugin hooks. If a vulnerable function isn&rsquo;t reachable from any of these, DepGuard does not report it.</p>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-label">Engine 4</div>
+    <h2>Huntr Agent &mdash; Agentic Analysis</h2>
+    <p class="section-intro">An 8-stage autonomous pipeline that uses LLMs to discover and confirm vulnerability hypotheses. It reasons about exploit chains and attempts to confirm exploitability.</p>
+    <div class="tbl-wrap"><table class="stage-table">
+      <thead><tr><th>#</th><th>Stage</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td class="stage-num">1</td><td>Recon</td><td>Parse all source files; extract HTTP routes, model files, SSRF/command/LFI sinks</td></tr>
+        <tr><td class="stage-num">2</td><td>DepScan</td><td>SCA with call-graph reachability</td></tr>
+        <tr><td class="stage-num">3</td><td>Hypothesize</td><td>Batch 50 findings, run parallel LLM analysis, synthesize exploit hypotheses</td></tr>
+        <tr><td class="stage-num">4</td><td>Deep-Dive</td><td>Re-scan specific files and functions named in hypotheses</td></tr>
+        <tr><td class="stage-num">5</td><td>Exploit</td><td>Confirm exploitability via direct AST taint analysis</td></tr>
+        <tr><td class="stage-num">6</td><td>WebExploit</td><td>If HTTP sinks exist, fire live probes &mdash; SSRF, path traversal, command injection, SQLi</td></tr>
+        <tr><td class="stage-num">7</td><td>VariantExpand</td><td>Find similar patterns in other files after initial confirmation</td></tr>
+        <tr><td class="stage-num">8</td><td>Report</td><td>Generate full write-up with attacker steps and remediation guidance</td></tr>
+      </tbody>
+    </table></div>
+    <p style="color:var(--muted);font-size:.875rem;margin-top:1rem"><strong style="color:var(--text)">LLM backend:</strong> Huntr Agent works with Gemini, Claude, OpenAI, or MiniMax. The free Gemini API tier is sufficient for most repositories.</p>
+  </div>
+</section>
+
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Full pipeline</div>
+    <h2>Input to output.</h2>
+    <div class="pipeline-block"><span class="pl-comment">Input: GitHub repo URL or local path</span>
+  |
+  v
+<span class="pl-comment">File discovery (excludes node_modules, .venv, build artifacts)</span>
+  |
+  v
+<span class="pl-comment">Four engines in parallel:</span>
+  |-- <span class="pl-engine">CodeGuard</span>   (inter-procedural taint analysis)
+  |-- <span class="pl-engine">NeuroScan</span>   (AST pattern matching, 125+ rules)
+  |-- <span class="pl-engine">DepGuard</span>    (SCA with reachability verification)
+  +-- <span class="pl-engine">Huntr Agent</span> (agentic hypothesis + exploit confirmation)
+  |
+  v
+<span class="pl-comment">Finding deduplication (fingerprint-based merge)</span>
+  |
+  v
+<span class="pl-comment">Enrichment (confidence scoring, remediation suggestions)</span>
+  |
+  v
+<span class="pl-comment">Output: JSON &mdash; SARIF &mdash; HTML &mdash; CSV &mdash; CycloneDX AI-BOM</span></div>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-label">Deployment</div>
+    <h2>Run it how you want.</h2>
+    <div class="card-grid" style="margin-top:2rem">
+      <div class="card">
+        <h3>CLI</h3>
+        <div class="code-block" style="display:block;margin-top:.75rem;font-size:.78rem">
+          <div><span class="cmd">rowan scan</span> ./my-project <span class="flag">--format</span> sarif <span class="flag">--output</span> findings.sarif</div>
+        </div>
+        <p style="margin-top:.75rem">Run locally. No infrastructure required. Outputs to file.</p>
+      </div>
+      <div class="card">
+        <h3>Web API</h3>
+        <p>FastAPI dashboard with project management, finding triage, REST endpoints, and webhook notifications. Single Docker container or distributed with Celery + Redis for large repositories.</p>
+      </div>
+      <div class="card">
+        <h3>Self-hosted cloud</h3>
+        <p>Azure Cosmos DB backend for multi-instance deployments. Encrypted LLM API keys at rest. API key authentication on all endpoints.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rowan-cta">
+  <div class="wrap">
+    <h2>See it in action.</h2>
+    <p>Read the confirmed findings and methodology on the benchmarks page.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="benchmarks.html" class="btn-hero-primary">Read the Benchmarks</a>
+      <a href="docs.html" class="btn-hero-secondary">Get started</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="footer-brand">Rowan</div>
+      <div class="footer-sub">AI security scanner by Hedgerow.</div>
+      <div class="footer-links" style="justify-content:flex-start">
+        <a href="product.html">Product</a><a href="how-it-works.html">How it works</a>
+        <a href="benchmarks.html">Benchmarks</a><a href="docs.html">Docs</a>
+        <a href="../index.html">Hedgerow</a><a href="mailto:hello@hedgerow.dev">Contact</a>
+      </div>
+    </div><div></div>
+  </div>
+  <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
+</footer>
+<script src="../nav.js" defer></script>
+</body>
+</html>

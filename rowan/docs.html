@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Rowan Docs &mdash; Get Started | Hedgerow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../hedgerow.css">
+<link rel="stylesheet" href="rowan.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span class="logo-word">Rowan</span><span class="logo-tag">by Hedgerow</span></a>
+  <div class="nav-links">
+    <a href="product.html">Product</a>
+    <a href="how-it-works.html">How it works</a>
+    <a href="benchmarks.html">Benchmarks</a>
+    <a href="docs.html" class="active">Docs</a>
+    <a href="#" class="nav-sign-in">Sign in</a>
+    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Get Early Access</a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="product.html">Product</a>
+  <a href="how-it-works.html">How it works</a>
+  <a href="benchmarks.html">Benchmarks</a>
+  <a href="docs.html">Docs</a>
+  <a href="#">Sign in</a>
+  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Get Early Access &rarr;</a>
+</div>
+
+<div class="rowan-page-header">
+  <div class="wrap">
+    <div class="section-label" style="color:rgba(255,255,255,.4)">Documentation</div>
+    <h1>Get started with Rowan.</h1>
+  </div>
+</div>
+
+<section style="background:var(--bg)">
+  <div class="wrap">
+    <div class="section-label">Quick start</div>
+    <h2>Up and running in minutes.</h2>
+    <div class="code-block" style="display:block;margin-top:2rem;max-width:640px">
+      <div style="color:#5A7A69;font-size:.73rem;margin-bottom:.5rem"># Install</div>
+      <div><span class="cmd">pip install</span> rowan</div>
+      <div style="margin-top:.875rem;color:#5A7A69;font-size:.73rem;margin-bottom:.5rem"># Scan a local project</div>
+      <div><span class="cmd">rowan scan</span> ./my-project</div>
+      <div style="margin-top:.875rem;color:#5A7A69;font-size:.73rem;margin-bottom:.5rem"># Scan with full output</div>
+      <div><span class="cmd">rowan scan</span> ./my-project <span class="flag">--format</span> json <span class="flag">--output</span> findings.json</div>
+      <div style="margin-top:.875rem;color:#5A7A69;font-size:.73rem;margin-bottom:.5rem"># Run the agentic hunt pipeline</div>
+      <div><span class="cmd">rowan hunt</span> ./my-project <span class="flag">--llm</span> gemini</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-label">Documentation</div>
+    <h2>Everything you need.</h2>
+    <div class="class-grid" style="margin-top:2rem">
+      <div class="class-card"><h3>Installation</h3><p>System requirements, pip install, Docker image.</p></div>
+      <div class="class-card"><h3>CLI Reference</h3><p>All commands, flags, and environment variables.</p></div>
+      <div class="class-card"><h3>Web API Reference</h3><p>REST endpoints, authentication, webhook payloads.</p></div>
+      <div class="class-card"><h3>Deployment Guide</h3><p>CLI, single-container, and distributed configurations.</p></div>
+      <div class="class-card"><h3>Operations Guide</h3><p>Monitoring, scaling, and maintenance.</p></div>
+      <div class="class-card"><h3>CI/CD Integration</h3><p>GitHub Actions template, PR gates, SARIF upload.</p></div>
+      <div class="class-card"><h3>Writing Custom Rules</h3><p>NeuroScan rule format, sink/source definitions.</p></div>
+      <div class="class-card"><h3>Benchmark Methodology</h3><p>How findings are classified and validated.</p></div>
+      <div class="class-card"><h3>Security Policy</h3><p>Responsible disclosure, CVE handling.</p></div>
+      <div class="class-card"><h3>Known Limitations</h3><p>Current gaps, planned fixes, and workarounds.</p></div>
+    </div>
+    <p style="margin-top:2rem;color:var(--muted);font-size:.875rem">Documentation is in active development. For early access, contact <a href="mailto:hello@hedgerow.dev" style="color:var(--navy)">hello@hedgerow.dev</a>.</p>
+  </div>
+</section>
+
+<section class="rowan-cta">
+  <div class="wrap">
+    <h2>Get early access.</h2>
+    <p>Rowan is in private beta. We&rsquo;re working with AI infrastructure teams who want to find vulnerabilities before they ship.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:hello@hedgerow.dev" class="btn-hero-primary">Request Access</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="footer-brand">Rowan</div>
+      <div class="footer-sub">AI security scanner by Hedgerow.</div>
+      <div class="footer-links" style="justify-content:flex-start">
+        <a href="product.html">Product</a><a href="how-it-works.html">How it works</a>
+        <a href="benchmarks.html">Benchmarks</a><a href="docs.html">Docs</a>
+        <a href="../index.html">Hedgerow</a><a href="mailto:hello@hedgerow.dev">Contact</a>
+      </div>
+    </div><div></div>
+  </div>
+  <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
+</footer>
+<script src="../nav.js" defer></script>
+</body>
+</html>
