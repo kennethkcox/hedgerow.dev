@@ -351,23 +351,27 @@ td:first-child { color:var(--text); font-weight:500 }
 
 /* ── Footer ── */
 footer {
-  background:var(--navy); color:rgba(255,255,255,.65);
-  padding:3.5rem 0 2.5rem; font-size:.85rem;
+  background:var(--navy);
+  padding:.875rem 0;
+  font-size:.78rem;
 }
-footer .wrap { display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:start }
+footer .wrap {
+  display:flex; align-items:center;
+  justify-content:space-between; gap:2rem; flex-wrap:wrap;
+}
 .footer-brand {
-  font-family:'Avenir Next', 'Avenir', 'Century Gothic', system-ui, sans-serif;
-  font-style:normal; font-size:1rem; font-weight:700;
-  letter-spacing:-.01em; color:#fff; margin-bottom:.4rem;
+  font-family:'Avenir Next', 'Avenir', 'Century Gothic', 'Montserrat', sans-serif;
+  font-weight:700; font-size:.82rem; letter-spacing:-.01em;
+  color:rgba(255,255,255,.7); flex-shrink:0;
 }
-.footer-sub { color:rgba(255,255,255,.5); font-size:.82rem; margin-bottom:1.1rem }
-.footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:flex-end }
-footer a { color:rgba(255,255,255,.6); text-decoration:none }
-footer a:hover { color:#fff }
+.footer-sub { display:none }
+.footer-links { display:flex; gap:1.5rem; flex-wrap:wrap }
+footer a { color:rgba(255,255,255,.45); text-decoration:none; font-size:.78rem }
+footer a:hover { color:rgba(255,255,255,.85) }
 .footer-patent {
-  font-size:.7rem; color:rgba(255,255,255,.4);
-  margin-top:1.5rem; border-top:1px solid rgba(255,255,255,.1);
-  padding-top:1rem;
+  font-size:.62rem; color:rgba(255,255,255,.28);
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:.625rem; margin-top:.25rem;
 }
 
 /* ── Hamburger ── */
@@ -468,5 +472,6 @@ footer a:hover { color:#fff }
   section { padding:3.5rem 0 }
   .wrap { padding:0 1.25rem }
   footer .wrap { grid-template-columns:1fr }
+  footer .wrap { flex-direction:column; gap:.75rem; align-items:flex-start }
   .footer-links { justify-content:flex-start }
 }
