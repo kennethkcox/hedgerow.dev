@@ -6,278 +6,96 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>How It Works — Thicket by Hedgerow</title>
+<title>How Thicket Works</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../hedgerow.css">
-<link rel="stylesheet" href="how-it-works.css">
+<link rel="stylesheet" href="product.css">
 </head>
 <body>
 
-<!-- ── Nav ── -->
 <nav>
-  <a class="nav-logo" href="../index.html">
-    <span class="logo-word">Hedgerow</span>
-    <span class="logo-tag">Thicket</span>
-  </a>
+  <a class="nav-logo" href="../index.html"><span class="logo-word">Hedgerow</span><span class="logo-tag">Thicket</span></a>
   <div class="nav-links">
-    <a href="index.html">Overview</a>
-    <a href="how-it-works.html" class="active">How it works</a>
-    <a href="compare.html">Compare</a>
     <a href="demos.html">Live demos</a>
-    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact Sales</a>
+    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact</a>
   </div>
   <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="index.html">Overview</a>
-  <a href="how-it-works.html">How it works</a>
-  <a href="compare.html">Compare</a>
   <a href="demos.html">Live demos</a>
-  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Contact Sales →</a>
+  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Contact &rarr;</a>
 </div>
 
-<!-- ── Page header ── -->
 <div class="page-header">
   <div class="wrap">
-    <div class="section-label" style="color:rgba(255,255,255,.4)">Technical detail</div>
-    <h1>How Thicket works</h1>
-    <p class="page-sub">Four independent enforcement layers, active deception, and AI-native protections — each enforcing at a different point in the execution path.</p>
+    <div class="section-label" style="color:rgba(255,255,255,.4)">How it works</div>
+    <h1>Four independent enforcement layers.</h1>
+    <p class="page-sub">An attacker who bypasses one immediately hits the next. Each layer operates at a different point in the execution path.</p>
   </div>
 </div>
 
-<!-- ── Enforcement layers ── -->
-<section class="layers-section" style="background:var(--bg)">
+<section style="background:var(--bg);padding:5rem 0;border-bottom:1px solid var(--border)">
   <div class="wrap">
-    <div class="section-label">Enforcement layers</div>
-    <h2>Defense-in-depth from content to kernel.</h2>
-    <p class="section-intro">Thicket installs four independent enforcement layers. An attacker who bypasses one immediately hits the next. Defeating the content scanner doesn't save them from the runtime trap. Evading the runtime won't save them from the kernel backstop.</p>
+    <div style="max-width:780px;border-top:1px solid var(--border)">
 
-    <div class="layer-detail" id="layer1">
-      <div class="layer-header">
-        <div class="layer-num">1</div>
-        <div class="layer-header-text">
-          <h3>Prompt &amp; Content Scanning</h3>
-          <p class="sub">Enforces before content reaches the model or triggers downstream execution</p>
+      <div style="display:grid;grid-template-columns:2.5rem 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:var(--celeste);font-weight:300">1</span>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:.4rem">Prompt &amp; content scanning</h3>
+          <p style="font-size:.9rem;color:var(--muted);margin:0;line-height:1.7">Every prompt, tool call, and model output is scanned before it reaches the model or triggers downstream execution. Runs in-process against deterministic pattern sets. No content leaves your environment.</p>
         </div>
       </div>
-      <div class="layer-body">
-        <p>Every prompt, retrieved document, tool call, and model output is scanned before it reaches the model or triggers downstream execution. Injection patterns, jailbreaks, and malicious content embedded in documents — including obfuscated and encoded variants — are covered.</p>
-        <div class="callout">
-          <p>No content leaves your environment for scanning. All detection runs in-process against deterministic pattern sets.</p>
+
+      <div style="display:grid;grid-template-columns:2.5rem 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:var(--celeste);font-weight:300">2</span>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:.4rem">Runtime enforcement</h3>
+          <p style="font-size:.9rem;color:var(--muted);margin:0;line-height:1.7">Intercepts operations at the moment of execution &mdash; network calls, file writes, process spawning &mdash; before they complete. No amount of prompt obfuscation bypasses a hook on the operation itself.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2.5rem 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border)">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:var(--celeste);font-weight:300">3</span>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:.4rem">OS kernel backstop</h3>
+          <p style="font-size:.9rem;color:var(--muted);margin:0;line-height:1.7">Kernel-level enforcement on Linux &ge; 5.10. Operates independently of the application runtime. Cannot be reversed from application code.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2.5rem 1fr;gap:1.5rem;padding:2rem 0">
+        <span style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:var(--celeste);font-weight:300">4</span>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:.4rem">eBPF DaemonSet <small style="font-weight:400;opacity:.55">(early access)</small></h3>
+          <p style="font-size:.9rem;color:var(--muted);margin:0;line-height:1.7">Kubernetes only. Extends enforcement node-wide to every container on the host.</p>
         </div>
       </div>
     </div>
 
-    <div class="layer-detail" id="layer2">
-      <div class="layer-header">
-        <div class="layer-num">2</div>
-        <div class="layer-header-text">
-          <h3>Runtime Enforcement</h3>
-          <p class="sub">Enforces at the execution boundary — inside the runtime, before operations complete</p>
-        </div>
-      </div>
-      <div class="layer-body">
-        <p>Even if an attacker bypasses content scanning, Thicket intercepts the resulting operation at the moment of execution — inside the runtime, before it completes.</p>
-        <div class="callout red">
-          <p>This layer does not inspect text. It intercepts the actual execution triggers — network calls, file writes, and process spawning — blocking unauthorized operations at the execution boundary.</p>
-        </div>
-        <p>This is the layer cloud services cannot replicate. No amount of prompt obfuscation bypasses a hook on the operation itself.</p>
-      </div>
-    </div>
-
-    <div class="layer-detail" id="layer3">
-      <div class="layer-header">
-        <div class="layer-num">3</div>
-        <div class="layer-header-text">
-          <h3>OS Kernel Backstop <small style="opacity:.55;font-weight:400">(early access)</small></h3>
-          <p class="sub">Linux kernel ≥ 5.10 with BPF LSM — no Kubernetes required</p>
-        </div>
-      </div>
-      <div class="layer-body">
-        <p>On compatible Linux hosts (kernel ≥ 5.10 with CONFIG_BPF_LSM), Thicket activates kernel-level enforcement that operates independently of the application runtime. Language-agnostic. Cannot be reversed from application code.</p>
-        <p>If an attacker manages to unhook application-level protections, any operations they attempt during that window are still caught here.</p>
-        <div class="callout green">
-          <p>Application-level protections are also detected and re-applied automatically. The kernel backstop covers any window between tamper detection and reapplication.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="layer-detail" id="layer4">
-      <div class="layer-header">
-        <div class="layer-num">4</div>
-        <div class="layer-header-text">
-          <h3>eBPF DaemonSet <small style="opacity:.55;font-weight:400">(early access)</small></h3>
-          <p class="sub"><span class="layer-tag k8s">Kubernetes only</span> — contact for early access</p>
-        </div>
-      </div>
-      <div class="layer-body">
-        <p>Extends enforcement node-wide — to every process on the host, including containers that do not import Thicket. Deployed as a Helm chart. Requires the eBPF daemon (early access — contact sales).</p>
-        <p>Where Layer 3 protects the instrumented process, Layer 4 protects the entire node. Any container on the node benefits from enforcement regardless of whether it imports the Thicket SDK.</p>
-      </div>
+    <div style="margin-top:3rem">
+      <a href="demos.html" class="btn btn-primary">Watch it block real attacks &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- ── Active Deception ── -->
-<section style="background:var(--surface);padding:4.5rem 0">
+<section style="background:var(--surface);padding:3.5rem 0">
   <div class="wrap">
-    <div class="section-label">Active Deception</div>
-    <h2>Beyond blocking — Thicket actively traps attackers.</h2>
-    <p class="section-intro">Detection and deception run alongside enforcement. When an attacker probes, they don't see a hard wall — they see plausible-looking responses, log every move, and eventually trigger a hard stop.</p>
-
-    <div class="deception-grid">
-      <div class="deception-card">
-        <h3>🍯 Honeypot Routes</h3>
-        <p>Decoy endpoints catch reconnaissance scanners before they reach your application. Scanners receive plausible-looking synthetic responses. Every probe is logged with source IP, method, and path.</p>
-      </div>
-      <div class="deception-card">
-        <h3>🪤 Agent Traps</h3>
-        <p>If a compromised AI agent attempts to invoke a high-privilege operation it was never supposed to know about, Thicket treats that as an unambiguous adversarial signal and terminates the request — regardless of audit settings.</p>
-      </div>
-      <div class="deception-card">
-        <h3>🎯 Canary Token Loop-Closing</h3>
-        <p>Synthetic credentials served to probing requests are tracked. If those credentials appear in any subsequent payload — in any encoding — it triggers an immediate hard stop.</p>
-        <div class="callout-inline">The attacker extracted fake data and tried to use it. Caught.</div>
-      </div>
-    </div>
+    <a href="mailto:hello@hedgerow.dev" class="contact-email-sm">hello@hedgerow.dev</a>
   </div>
 </section>
 
-<!-- ── Extended Capabilities ── -->
-<section style="background:var(--bg);padding:4.5rem 0">
-  <div class="wrap">
-    <div class="section-label">AI-Native Protections</div>
-    <h2>Built for AI applications — not adapted from general-purpose tools.</h2>
-    <p class="section-intro">Thicket includes protections specific to the AI stack that traditional application security tools do not cover.</p>
-
-    <div class="cap-grid">
-      <div class="cap-card">
-        <span class="cap-icon">🧮</span>
-        <h3>Safe Expression Evaluation</h3>
-        <p>AI applications increasingly need to evaluate user-supplied logic — custom rules, routing conditions, data filters, transformation expressions. Thicket provides a sandboxed evaluator that validates code structure before any execution occurs.</p>
-        <p>The dangerous built-in evaluation functions are never called. Safe for embedding in agent tools, flow builders, and notebook environments.</p>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">🖼️</span>
-        <h3>Multi-Modal Security</h3>
-        <p>Attackers don't only attack through text. Thicket scans image and media payloads for:</p>
-        <ul>
-          <li>Injection instructions hidden in image metadata and embedded data channels</li>
-          <li>Malicious content embedded in SVG files</li>
-          <li>Suspicious payloads concealed using steganographic techniques</li>
-        </ul>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">🤖</span>
-        <h3>AI Model File Inspection</h3>
-        <p>A model file is code. Before Thicket allows a model to be loaded, it inspects the file for:</p>
-        <ul>
-          <li>Injection instructions embedded in model metadata and chat templates</li>
-          <li>Malicious content in system prompt fields</li>
-          <li>Structural anomalies in model architecture fields</li>
-        </ul>
-        <p style="margin-top:.5rem">Covers GGUF and ONNX formats.</p>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">🔗</span>
-        <h3>Multi-Agent Trust &amp; MCP Security</h3>
-        <p>Agentic workflows introduce attack surfaces that single-model applications do not have:</p>
-        <ul>
-          <li><strong>Per-agent trust levels</strong> — cross-tier privilege escalation is blocked</li>
-          <li><strong>Tool-result scanning</strong> — results from web searches and external tools are scanned before reaching the model</li>
-          <li><strong>MCP tool-definition inspection</strong> — tool names and descriptions scanned at registration and call time</li>
-          <li><strong>Denial-of-wallet protection</strong> — runaway agents are rate-limited before they exhaust API budgets</li>
-        </ul>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">📦</span>
-        <h3>AI Supply Chain Integrity</h3>
-        <p>The dependency and model supply chain is an attack surface most AI security tools ignore:</p>
-        <ul>
-          <li><strong>Model integrity</strong> — cryptographic hash verification; any deviation blocks the load</li>
-          <li><strong>Package typosquatting detection</strong> — scans your dependency list for lookalike AI package names</li>
-          <li><strong>Model provenance</strong> — checks HuggingFace model metadata for supply chain risk signals</li>
-          <li><strong>SBOM generation</strong> — CycloneDX-format Software Bill of Materials for compliance workflows</li>
-        </ul>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">🔬</span>
-        <h3>Built-in Code Scanner</h3>
-        <p>Before you deploy, Thicket can scan your own Python and JavaScript codebase for dangerous source-to-sink flows — user-controlled inputs reaching command execution, deserialization, SSRF-prone HTTP calls, file access, and AI orchestration entry points.</p>
-        <p>Results export in SARIF format, compatible with GitHub Code Scanning, VS Code, and major CI pipelines.</p>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">🔄</span>
-        <h3>Static Analysis Integration</h3>
-        <p>Already running a SAST scanner? Connect its findings to the runtime engine.</p>
-        <p>Thicket can load results from your existing static analysis tooling and automatically elevate monitoring on code paths your scanner has already flagged. Static findings become active runtime signals.</p>
-      </div>
-      <div class="cap-card">
-        <span class="cap-icon">👁️</span>
-        <h3>Model Extraction Detection</h3>
-        <p>Attackers can attempt to clone your model by sending high volumes of carefully crafted queries and collecting outputs. Thicket monitors query patterns per session and blocks extraction attempts before they yield meaningful results.</p>
-        <p>Output scanning also detects when model weight data appears in responses.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Audit ── -->
-<section style="background:var(--surface);padding:4.5rem 0">
-  <div class="wrap">
-    <div class="section-label">Audit &amp; Compliance</div>
-    <h2>Full audit trail, every enforcement action.</h2>
-    <div class="card-grid-2" style="margin-top:2rem">
-      <div class="card">
-        <h3>Structured audit log</h3>
-        <p>Every enforcement action is logged — blocked category, request context, tenant ID, timestamp — and forwarded to your audit infrastructure. Syslog and Windows Event Log supported.</p>
-      </div>
-      <div class="card">
-        <h3>Audit-only mode</h3>
-        <p>Records what would be blocked without enforcing. Evaluate policy impact before touching production — see exactly what would have been caught without disrupting your application.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CTA ── -->
-<section style="background:var(--bg);padding:4rem 0;text-align:center">
-  <div class="wrap">
-    <h2 style="margin-bottom:.75rem">Ready to see it in action?</h2>
-    <p style="color:var(--muted);max-width:480px;margin:0 auto 2rem">Watch live terminal demos — real attacks, real blocking, side by side.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="demos.html" class="btn btn-primary">View live demos →</a>
-      <a href="compare.html" class="btn btn-outline">Compare vs cloud scanners</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Footer ── -->
 <footer>
   <div class="wrap">
-    <div>
-      <div class="footer-brand">Hedgerow</div>
-      <div class="footer-sub">Thicket — Runtime security for AI applications.</div>
-      <div class="footer-links" style="justify-content:flex-start">
-        <a href="../index.html">Hedgerow</a>
-        <a href="index.html">Overview</a>
-        <a href="compare.html">Compare</a>
-        <a href="demos.html">Live demos</a>
-        <a href="mailto:hello@hedgerow.dev">Contact Sales</a>
-      </div>
-    </div>
-    <div></div>
+    <div><div class="footer-brand">Hedgerow</div>
+    <div class="footer-links" style="justify-content:flex-start;margin-top:.5rem">
+      <a href="../index.html">Home</a>
+      <a href="demos.html">Live demos</a>
+      <a href="mailto:hello@hedgerow.dev">Contact</a>
+    </div></div><div></div>
   </div>
-  <div class="wrap">
-    <div class="footer-patent">
-      Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>
-      Commercially licensed. Technology protected by pending patent applications.
-    </div>
-  </div>
+  <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
 </footer>
-
 <script src="../nav.js" defer></script>
 </body>
 </html>

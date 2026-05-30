@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Rowan Benchmarks &mdash; Confirmed Findings | Hedgerow</title>
+<title>Rowan Benchmarks &mdash; Confirmed Findings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,156 +16,102 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html"><span class="logo-word">Rowan</span><span class="logo-tag">by Hedgerow</span></a>
+  <a class="nav-logo" href="../index.html"><span class="logo-word">Hedgerow</span><span class="logo-tag">Rowan</span></a>
   <div class="nav-links">
-    <a href="product.html">Product</a>
-    <a href="how-it-works.html">How it works</a>
     <a href="benchmarks.html" class="active">Benchmarks</a>
-    <a href="docs.html">Docs</a>
-    <a href="#" class="nav-sign-in">Sign in</a>
     <a href="mailto:hello@hedgerow.dev" class="nav-cta">Get Early Access</a>
   </div>
   <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="product.html">Product</a>
-  <a href="how-it-works.html">How it works</a>
   <a href="benchmarks.html">Benchmarks</a>
-  <a href="docs.html">Docs</a>
-  <a href="#">Sign in</a>
   <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Get Early Access &rarr;</a>
 </div>
 
 <div class="rowan-page-header">
   <div class="wrap">
     <div class="section-label" style="color:rgba(255,255,255,.4)">Benchmarks</div>
-    <h1>What we can prove.<br>What we can&rsquo;t yet.</h1>
-    <p class="page-sub">We publish our benchmark methodology, known gaps, and the current state of our precision and recall data. We&rsquo;d rather be honest than impressive.</p>
+    <h1>Confirmed findings in production AI frameworks.</h1>
+    <p class="page-sub">Not synthetic test cases. Confirmed exploitable. Disclosed to maintainers. All missed by CodeQL and Semgrep.</p>
   </div>
 </div>
 
-<section style="background:var(--bg)">
+<section style="background:var(--bg);padding:5rem 0;border-bottom:1px solid var(--border)">
   <div class="wrap">
-    <div class="section-label">SGLang &mdash; April 2026</div>
-    <h2>Three critical RCEs in one of the most widely deployed LLM inference frameworks.</h2>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:2rem">All three vulnerabilities were confirmed exploitable and missed by CodeQL and Semgrep. Proof of concept available in the data room.</p>
-    <div class="proof-section">
-      <div class="finding-block">
+    <p class="section-label">SGLang &mdash; April 2026</p>
+    <h2 style="margin-bottom:2rem">Three critical RCEs. All missed by existing tooling.</h2>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;max-width:780px">
+      <div class="card">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
           <span class="sev-badge sev-crit">CVSS 10.0</span>
-          <span class="finding-title">SSTI via <code>chat_template_kwargs</code></span>
+          <span style="font-weight:600;font-size:.95rem">SSTI via <code>chat_template_kwargs</code></span>
         </div>
-        <p class="finding-body">User-controlled input reaches a Jinja2 <code>Template().render()</code> call through <code>apply_chat_template()</code>. Unauthenticated remote code execution. Proof of concept available in the data room.</p>
+        <p style="font-size:.875rem;color:var(--muted);margin:0">User-controlled input reaches a Jinja2 <code>Template().render()</code> call through <code>apply_chat_template()</code>. Unauthenticated RCE.</p>
       </div>
-      <div class="finding-block">
+      <div class="card">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
           <span class="sev-badge sev-high">CVSS 8.1</span>
-          <span class="finding-title"><code>dill.loads</code> deserialization in <code>CustomLogitProcessor</code></span>
+          <span style="font-weight:600;font-size:.95rem"><code>dill.loads</code> deserialization in <code>CustomLogitProcessor</code></span>
         </div>
-        <p class="finding-body">User-supplied logit processor configurations are deserialized with <code>dill.loads()</code> without validation. Allows arbitrary code execution via a crafted payload.</p>
+        <p style="font-size:.875rem;color:var(--muted);margin:0">User-supplied logit processor deserialized without validation. Arbitrary code execution via crafted payload.</p>
       </div>
-      <div class="finding-block">
+      <div class="card">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
           <span class="sev-badge sev-crit">CVSS 10.0</span>
-          <span class="finding-title">ZMQ p<!-- -->ickle regression &mdash; incomplete CVE-2026-3060 patch</span>
+          <span style="font-weight:600;font-size:.95rem">ZMQ serialization regression &mdash; incomplete CVE-2026-3060 patch</span>
         </div>
-        <p class="finding-body">CVE-2026-3060 was partially patched. Rowan detected the remaining code path where serialization was still reachable. Unauthenticated RCE restored after the incomplete patch.</p>
+        <p style="font-size:.875rem;color:var(--muted);margin:0">CVE-2026-3060 was partially patched. Rowan detected the remaining code path. Unauthenticated RCE restored after the fix.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section style="background:var(--surface)">
+<section style="background:var(--surface);padding:5rem 0;border-bottom:1px solid var(--border)">
   <div class="wrap">
-    <div class="section-label">Letta &mdash; May 2026</div>
-    <h2>Two critical RCEs in the core tool executor.</h2>
-    <div class="proof-section">
-      <div class="finding-block">
+    <p class="section-label">Letta &mdash; May 2026</p>
+    <h2 style="margin-bottom:2rem">Two critical RCEs in the core tool executor.</h2>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;max-width:780px">
+      <div class="card">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
           <span class="sev-badge sev-crit">Critical</span>
-          <span class="finding-title"><code>ev<!-- -->al()</code> on LLM-controlled strings</span>
+          <span style="font-weight:600;font-size:.95rem">Dynamic code evaluation on LLM-controlled strings</span>
         </div>
-        <p class="finding-body">The CLI interface passes LLM output directly to <code>ev<!-- -->al()</code>. Any LLM response can execute arbitrary Python in the scanner process.</p>
+        <p style="font-size:.875rem;color:var(--muted);margin:0">CLI interface passes LLM output to a code evaluator. Any LLM response can execute arbitrary Python.</p>
       </div>
-      <div class="finding-block">
+      <div class="card">
         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
           <span class="sev-badge sev-crit">Critical</span>
-          <span class="finding-title"><code>ex<!-- -->ec()</code> with full <code>__builtins__</code></span>
+          <span style="font-weight:600;font-size:.95rem">Core tool executor with full built-in access</span>
         </div>
-        <p class="finding-body">The core tool executor runs <code>ex<!-- -->ec()</code> with the full built-in namespace accessible. LLM-generated tool implementations can read the filesystem, spawn processes, or make network calls.</p>
+        <p style="font-size:.875rem;color:var(--muted);margin:0">LLM-generated tool implementations can read the filesystem, spawn processes, and make network calls.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section style="background:var(--bg)">
+<section style="background:var(--bg);padding:5rem 0;border-bottom:1px solid var(--border)">
   <div class="wrap">
-    <div class="section-label">LangChain &mdash; CVE-2025-68664</div>
+    <p class="section-label">LangChain &mdash; CVE-2025-68664</p>
     <h2>100% recall on a published CVE.</h2>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:1rem">Rowan scanned 1,697 files and identified 58 instances of <code>langchain.loads()</code> with 100% recall and zero false positives. The vulnerable function deserializes untrusted data into arbitrary Python objects.</p>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75">Cross-validated against the CVE ground truth.</p>
+    <p style="color:var(--muted);max-width:600px;line-height:1.75;margin-top:1rem">58 instances of <code>langchain.loads()</code> across 1,697 files. Recall: 100%. False positive rate: 0%. Cross-validated against the CVE ground truth.</p>
   </div>
 </section>
 
-<section style="background:var(--surface)">
+<section style="background:var(--navy);padding:4rem 0">
   <div class="wrap">
-    <div class="section-label">Comparison</div>
-    <h2>Rowan vs CodeQL vs Semgrep.</h2>
-    <div class="tbl-wrap"><table class="compare-table">
-      <thead><tr><th>Capability</th><th>Rowan</th><th>CodeQL</th><th>Semgrep</th></tr></thead>
-      <tbody>
-        <tr><td>Cross-file taint (Python)</td><td class="tick-rowan">Full</td><td>Strong</td><td>Basic</td></tr>
-        <tr><td>AI/ML sink models</td><td class="tick-rowan">Yes</td><td class="cross-other">No</td><td class="cross-other">No</td></tr>
-        <tr><td>Reachability-aware SCA</td><td class="tick-rowan">Yes</td><td>Partial</td><td>Partial</td></tr>
-        <tr><td>Confidence scoring per finding</td><td class="tick-rowan">0&ndash;100%</td><td>Heuristic</td><td>Basic</td></tr>
-        <tr><td>Agentic hunt mode</td><td class="tick-rowan">Yes</td><td class="cross-other">No</td><td class="cross-other">No</td></tr>
-        <tr><td>General Python coverage</td><td>Gaps</td><td>Comprehensive</td><td>Good</td></tr>
-        <tr><td>XXE detection</td><td class="cross-other">Planned</td><td class="tick-rowan">Yes</td><td class="tick-rowan">Yes</td></tr>
-      </tbody>
-    </table></div>
-    <div class="callout" style="margin-top:2rem">
-      <p><strong>The honest summary:</strong> Rowan is not a drop-in replacement for CodeQL on general Python. CodeQL is stronger on XXE and some deserialization patterns. Rowan&rsquo;s edge is AI/ML-specific vulnerabilities and agentic analysis. For AI infrastructure teams, run both.</p>
-    </div>
-  </div>
-</section>
-
-<section style="background:var(--bg)">
-  <div class="wrap">
-    <div class="section-label">Known limitations</div>
-    <h2>What we can&rsquo;t do yet.</h2>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:1.5rem">We maintain a public <code>KNOWN_LIMITATIONS.md</code> in the repository. Current gaps:</p>
-    <div style="display:flex;flex-direction:column;gap:.75rem;max-width:700px">
-      <div class="card" style="padding:1rem 1.25rem"><p style="margin:0;font-size:.875rem">XXE / XML parsing rules &mdash; planned v0.2.1</p></div>
-      <div class="card" style="padding:1rem 1.25rem"><p style="margin:0;font-size:.875rem">Flask route-parameter taint &mdash; partial coverage only</p></div>
-      <div class="card" style="padding:1rem 1.25rem"><p style="margin:0;font-size:.875rem">No published precision/recall scorecard with confidence intervals yet</p></div>
-      <div class="card" style="padding:1rem 1.25rem"><p style="margin:0;font-size:.875rem">Cross-file taint for Java, JavaScript, Go, C# is within-file only</p></div>
-      <div class="card" style="padding:1rem 1.25rem"><p style="margin:0;font-size:.875rem">No scan sandbox yet &mdash; malicious repositories can affect the scanner process (containerization planned v0.3.0)</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="rowan-cta">
-  <div class="wrap">
-    <h2>Get early access.</h2>
-    <p>Rowan is in private beta. We&rsquo;re working with AI infrastructure teams who want to find vulnerabilities before they ship.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="mailto:hello@hedgerow.dev" class="btn-hero-primary">Request Access</a>
-      <a href="docs.html" class="btn-hero-secondary">Read the docs</a>
-    </div>
+    <p style="color:rgba(255,255,255,.45);font-size:.875rem;margin-bottom:1rem">Private diligence pack available under NDA.</p>
+    <a href="mailto:hello@hedgerow.dev" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:#fff;text-decoration:none;border-bottom:1.5px solid rgba(255,255,255,.25);padding-bottom:.2rem">hello@hedgerow.dev</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div>
-      <div class="footer-brand">Rowan</div>
-      <div class="footer-sub">AI security scanner by Hedgerow.</div>
-      <div class="footer-links" style="justify-content:flex-start">
-        <a href="product.html">Product</a><a href="how-it-works.html">How it works</a>
-        <a href="benchmarks.html">Benchmarks</a><a href="docs.html">Docs</a>
-        <a href="../index.html">Hedgerow</a><a href="mailto:hello@hedgerow.dev">Contact</a>
-      </div>
-    </div><div></div>
+    <div><div class="footer-brand">Hedgerow</div>
+    <div class="footer-links" style="justify-content:flex-start;margin-top:.5rem">
+      <a href="../index.html">Home</a>
+      <a href="index.html">Rowan</a>
+      <a href="mailto:hello@hedgerow.dev">Contact</a>
+    </div></div><div></div>
   </div>
   <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
 </footer>

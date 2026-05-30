@@ -6,219 +6,82 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Compare — Thicket by Hedgerow</title>
+<title>Thicket vs Alternatives</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../hedgerow.css">
-<link rel="stylesheet" href="compare.css">
+<link rel="stylesheet" href="product.css">
 </head>
 <body>
 
-<!-- ── Nav ── -->
 <nav>
-  <a class="nav-logo" href="../index.html">
-    <span class="logo-word">Hedgerow</span>
-    <span class="logo-tag">Thicket</span>
-  </a>
+  <a class="nav-logo" href="../index.html"><span class="logo-word">Hedgerow</span><span class="logo-tag">Thicket</span></a>
   <div class="nav-links">
-    <a href="index.html">Overview</a>
-    <a href="how-it-works.html">How it works</a>
-    <a href="compare.html" class="active">Compare</a>
     <a href="demos.html">Live demos</a>
-    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact Sales</a>
+    <a href="mailto:hello@hedgerow.dev" class="nav-cta">Contact</a>
   </div>
   <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="index.html">Overview</a>
-  <a href="how-it-works.html">How it works</a>
-  <a href="compare.html">Compare</a>
   <a href="demos.html">Live demos</a>
-  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Contact Sales →</a>
+  <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Contact &rarr;</a>
 </div>
 
-<!-- ── Page header ── -->
 <div class="page-header">
   <div class="wrap">
-    <div class="section-label" style="color:rgba(255,255,255,.4)">Comparison &amp; FAQ</div>
-    <h1>Thicket vs the alternatives</h1>
-    <p class="page-sub">How runtime enforcement differs from cloud prompt scanners — and what to choose when.</p>
+    <div class="section-label" style="color:rgba(255,255,255,.4)">Compare</div>
+    <h1>Thicket vs cloud prompt scanners.</h1>
+    <p class="page-sub">Cloud scanners inspect text. Thicket intercepts execution. The distinction matters.</p>
   </div>
 </div>
 
-<!-- ── Why Thicket ── -->
-<section class="compare-section" style="background:var(--bg)">
+<section style="background:var(--bg);padding:5rem 0">
   <div class="wrap">
-    <div class="section-label">Deterministic by design</div>
-    <h2>Four reasons teams choose Thicket.</h2>
-    <div class="card-grid" style="margin-top:2rem">
-      <div class="card">
-        <h3>Deterministic enforcement you can reason about and audit.</h3>
-        <p>No AI inside. Every blocking decision comes from a rule, a patch, or a kernel control — not a probability score. A block is a block: auditable, reproducible, explainable to your compliance team.</p>
-      </div>
-      <div class="card">
-        <h3>Zero external dependencies.</h3>
-        <p>Thicket runs entirely in-process. No outbound calls, no API key, no cloud service. Suitable for air-gapped deployments, classified environments, and any situation where data sovereignty is a hard requirement.</p>
-      </div>
-      <div class="card">
-        <h3>Eliminates AI Act, NIS2, DORA, and GDPR data-sovereignty risk.</h3>
-        <p>All scanning and enforcement happens on-premise, inside your process. No AI input or output ever reaches an external API — removing a significant compliance exposure for EU-regulated organisations.</p>
-      </div>
-      <div class="card">
-        <h3>Defense-in-depth — not a single layer.</h3>
-        <p>Each enforcement layer operates independently. Bypassing one does not bypass the others.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Comparison table ── -->
-<section class="compare-section" style="background:var(--surface)">
-  <div class="wrap">
-    <div class="section-label">Full comparison</div>
-    <h2>Thicket vs cloud prompt scanners.</h2>
-
-    <div class="concession">
-      <strong>Fair caveat:</strong> If you have no data-sovereignty constraints and maximising recall on genuinely novel prompt injections is your sole priority, a cloud scanner may complement Thicket — their trained corpora for unknown patterns are larger. For everything else:
-    </div>
-
     <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
-            <th style="width:38%">Capability</th>
+            <th style="width:40%">Capability</th>
             <th>Thicket</th>
-            <th>Cloud Prompt Scanners</th>
+            <th>Cloud prompt scanners</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Detection</td><td class="t-good">Deterministic enforcement + content scanning</td><td class="t-dim">API-based text analysis</td></tr>
-          <tr><td>Deployment</td><td class="t-good">In-process — no external calls</td><td class="t-dim">SaaS API</td></tr>
-          <tr><td>Offline / air-gapped</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
-          <tr><td>Runtime blocking</td><td class="t-good">Yes — at the execution boundary</td><td class="t-bad">No</td></tr>
-          <tr><td>SSRF protection</td><td class="t-good">Yes — catches encoding obfuscation</td><td class="t-bad">No</td></tr>
+          <tr><td>Runtime blocking</td><td class="t-good">Yes &mdash; at the execution boundary</td><td class="t-bad">No</td></tr>
+          <tr><td>SSRF protection</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
           <tr><td>Deserialization hardening</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
-          <tr><td>Active deception layer</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
-          <tr><td>OS kernel backstop</td><td class="t-good">Yes — Linux kernel ≥ 5.10 (early access)</td><td class="t-bad">No</td></tr>
-          <tr><td>AI model file inspection</td><td class="t-good">Yes — GGUF and ONNX</td><td class="t-bad">No</td></tr>
-          <tr><td>AI supply chain integrity</td><td class="t-good">Yes — hash verification, typosquatting, SBOM</td><td class="t-bad">No</td></tr>
+          <tr><td>Works offline / air-gapped</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
           <tr><td>No AI making blocking decisions</td><td class="t-good">Yes</td><td class="t-bad">No</td></tr>
-          <tr><td>Data leaves the process</td><td class="t-good">Never</td><td class="t-bad">Always</td></tr>
+          <tr><td>Data leaves your process</td><td class="t-good">Never</td><td class="t-bad">Always</td></tr>
+          <tr><td>OS kernel backstop</td><td class="t-good">Yes (Linux &ge; 5.10)</td><td class="t-bad">No</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
-</section>
-
-<!-- ── Known Limitations ── -->
-<section class="compare-section" style="background:var(--bg)">
-  <div class="wrap">
-    <div class="section-label">Transparency</div>
-    <h2>Known limitations.</h2>
-    <p style="color:var(--muted);max-width:600px;margin-bottom:2rem">We'd rather you hear these from us.</p>
-
-    <div class="limit-list">
-      <div class="limit-item">
-        <span class="limit-label">Prompt injection recall</span>
-        <span class="limit-body">Not 100%. Novel patterns not matching known signatures may pass content scanning. Runtime enforcement and kernel controls remain active regardless.</span>
-      </div>
-      <div class="limit-item">
-        <span class="limit-label">Context detection</span>
-        <span class="limit-body">Relies on call stack inspection. Unusual async execution patterns may occasionally misidentify context. A configurable override is available.</span>
-      </div>
-      <div class="limit-item">
-        <span class="limit-label">Rate limiting scope</span>
-        <span class="limit-body">Per-process. In multi-worker deployments each worker maintains independent state.</span>
-      </div>
-      <div class="limit-item">
-        <span class="limit-label">In-memory patch tampering</span>
-        <span class="limit-body">If a highly privileged attacker manages to unhook application-level protections, they are detected and re-applied automatically. Any operations attempted during that window are still caught by the OS kernel backstop.</span>
-      </div>
-      <div class="limit-item">
-        <span class="limit-label">SDK coverage</span>
-        <span class="limit-body">Opt-in. LLM SDK protection must be explicitly activated.</span>
-      </div>
+    <p style="margin-top:2.5rem;font-size:.9rem;color:var(--muted);max-width:580px;line-height:1.75">For organisations with data-sovereignty requirements, a cloud scanner that receives your prompts is not a viable option regardless of detection quality.</p>
+    <div style="margin-top:2.5rem">
+      <a href="demos.html" class="btn btn-primary">Watch it block real attacks &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- ── FAQ ── -->
-<section class="compare-section" style="background:var(--surface)">
+<section style="background:var(--surface);padding:3.5rem 0">
   <div class="wrap">
-    <div class="section-label">FAQ</div>
-    <h2>Common questions.</h2>
-    <div style="max-width:760px;margin-top:2rem">
-
-      <div class="faq-item">
-        <div class="faq-q">Does Thicket use AI or machine learning for detection?</div>
-        <div class="faq-a">No. Every enforcement decision is deterministic. No model is involved in any blocking decision.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Does it require internet access or an external service?</div>
-        <div class="faq-a">Zero external dependencies. Thicket is imported at startup. No outbound calls, no API key, no DNS resolution required.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Will it work in an air-gapped or classified environment?</div>
-        <div class="faq-a">Yes. Nothing leaves the process.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Does it support multi-tenant applications?</div>
-        <div class="faq-a">Yes. Per-tenant context isolation and rate limiting are built in.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What happens if a protection layer is tampered with?</div>
-        <div class="faq-a">Application-level protections are detected and re-applied automatically. Any operations attempted during that window are still covered by the OS kernel backstop.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Is it compatible with async frameworks like FastAPI?</div>
-        <div class="faq-a">Yes. All middleware is async-compatible.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">What does the performance overhead look like?</div>
-        <div class="faq-a">Enforcement is in-process with no network round-trips. Audit-only mode lets you measure impact before enabling enforcement.</div>
-      </div>
-
-    </div>
+    <a href="mailto:hello@hedgerow.dev" class="contact-email-sm">hello@hedgerow.dev</a>
   </div>
 </section>
 
-<!-- ── CTA ── -->
-<section style="background:var(--bg);padding:4rem 0;text-align:center">
-  <div class="wrap">
-    <h2 style="margin-bottom:.75rem">Ready to protect your AI application?</h2>
-    <p style="color:var(--muted);max-width:480px;margin:0 auto 2rem">Enterprise contracts. No per-seat pricing. No per-token meters.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="mailto:hello@hedgerow.dev" class="btn btn-primary">Contact Sales</a>
-      <a href="demos.html" class="btn btn-outline">View live demos →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── Footer ── -->
 <footer>
   <div class="wrap">
-    <div>
-      <div class="footer-brand">Hedgerow</div>
-      <div class="footer-sub">Thicket — Runtime security for AI applications.</div>
-      <div class="footer-links" style="justify-content:flex-start">
-        <a href="../index.html">Hedgerow</a>
-        <a href="index.html">Overview</a>
-        <a href="how-it-works.html">How it works</a>
-        <a href="demos.html">Live demos</a>
-        <a href="mailto:hello@hedgerow.dev">Contact Sales</a>
-      </div>
-    </div>
-    <div></div>
+    <div><div class="footer-brand">Hedgerow</div>
+    <div class="footer-links" style="justify-content:flex-start;margin-top:.5rem">
+      <a href="../index.html">Home</a>
+      <a href="demos.html">Live demos</a>
+      <a href="mailto:hello@hedgerow.dev">Contact</a>
+    </div></div><div></div>
   </div>
-  <div class="wrap">
-    <div class="footer-patent">
-      Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>
-      Commercially licensed. Technology protected by pending patent applications.
-    </div>
-  </div>
+  <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
 </footer>
-
 <script src="../nav.js" defer></script>
 </body>
 </html>

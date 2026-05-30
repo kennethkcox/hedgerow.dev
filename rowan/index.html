@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Rowan &mdash; AI Security Scanner by Hedgerow</title>
+<title>Rowan &mdash; Source Code Analysis for AI Infrastructure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,165 +16,84 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html"><span class="logo-word">Rowan</span><span class="logo-tag">by Hedgerow</span></a>
+  <a class="nav-logo" href="../index.html">
+    <span class="logo-word">Hedgerow</span>
+    <span class="logo-tag">Rowan</span>
+  </a>
   <div class="nav-links">
-    <a href="product.html">Product</a>
-    <a href="how-it-works.html">How it works</a>
     <a href="benchmarks.html">Benchmarks</a>
-    <a href="docs.html">Docs</a>
-    <a href="#" class="nav-sign-in">Sign in</a>
     <a href="mailto:hello@hedgerow.dev" class="nav-cta">Get Early Access</a>
   </div>
   <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-drawer" id="navDrawer">
-  <a href="product.html">Product</a>
-  <a href="how-it-works.html">How it works</a>
   <a href="benchmarks.html">Benchmarks</a>
-  <a href="docs.html">Docs</a>
-  <a href="#">Sign in</a>
   <a href="mailto:hello@hedgerow.dev" class="nav-drawer-cta">Get Early Access &rarr;</a>
 </div>
 
 <section class="rowan-hero">
   <div class="wrap">
-    <h1>Security scanning built<br>for AI infrastructure.</h1>
-    <p class="hero-sub">Rowan finds the vulnerabilities that CodeQL and Semgrep miss &mdash; unsafe model loading, prompt injection, and multi-hop exploit chains across LLM frameworks. Three confirmed critical RCEs in SGLang. Two in Letta.</p>
-    <div class="hero-actions">
-      <a href="mailto:hello@hedgerow.dev" class="btn-hero-primary">Get Early Access</a>
-      <a href="benchmarks.html" class="btn-hero-secondary">Read the Benchmarks</a>
+    <h1>Source code analysis that finds what general-purpose SAST misses.</h1>
+    <p class="hero-sub">Cross-file taint analysis and AI-specific sink models. Rowan understands that <code>torch.load()</code> is a code execution primitive. That <code>trust_remote_code=True</code> is a trust boundary. That the attack surface of an AI application is not the same as a web API.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem">
+      <a href="mailto:hello@hedgerow.dev" class="btn" style="background:#fff;color:var(--navy)">Request early access</a>
+      <a href="benchmarks.html" class="btn" style="background:transparent;color:rgba(255,255,255,.7);border:1.5px solid rgba(255,255,255,.25)">Read the findings &rarr;</a>
     </div>
   </div>
-  <div class="wrap" style="margin-top:2.5rem">
-    <div class="proof-bar">
-      <span class="proof-bar-label">Confirmed findings in</span>
-      <div class="proof-names">
-        <span class="confirmed">SGLang</span>
-        <span class="confirmed">Letta</span>
-        <span class="confirmed">LangChain</span>
-        <span>HuggingFace</span>
-        <span>Gradio</span>
+</section>
+
+<section style="background:var(--bg);padding:5rem 0;border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <p class="section-label">Evidence</p>
+    <h2>Confirmed in production.</h2>
+    <p class="section-intro" style="margin-bottom:2.5rem">Findings in real codebases, confirmed exploitable, disclosed to maintainers. All missed by CodeQL and Semgrep.</p>
+    <div style="display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--border)">
+      <div style="padding:1.25rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:2rem;flex-wrap:wrap">
+        <span style="font-weight:600;color:var(--text)">SGLang &mdash; three critical RCEs</span>
+        <span style="font-size:.78rem;color:var(--faint)">CVSS 10.0, 10.0, 8.1 &middot; April 2026</span>
+      </div>
+      <div style="padding:1.25rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:2rem;flex-wrap:wrap">
+        <span style="font-weight:600;color:var(--text)">Letta &mdash; two critical RCEs</span>
+        <span style="font-size:.78rem;color:var(--faint)">May 2026</span>
+      </div>
+      <div style="padding:1.25rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:2rem;flex-wrap:wrap">
+        <span style="font-weight:600;color:var(--text)">LangChain &mdash; CVE-2025-68664</span>
+        <span style="font-size:.78rem;color:var(--faint)">100% recall, zero false positives</span>
       </div>
     </div>
+    <p style="margin-top:1.25rem;font-size:.82rem;color:var(--faint)">
+      <a href="benchmarks.html" style="color:var(--sage);text-decoration:none;font-weight:600">Full findings &rarr;</a>
+    </p>
   </div>
 </section>
 
-<section style="background:var(--bg)">
+<section style="background:var(--navy);padding:5.5rem 0;text-align:left">
   <div class="wrap">
-    <div class="section-label">The problem</div>
-    <h2>The tools you have weren&rsquo;t built for AI.</h2>
-    <p class="section-intro">CodeQL and Semgrep are excellent general-purpose scanners. But AI infrastructure introduces attack surfaces they don&rsquo;t model.</p>
-    <div class="callout red" style="margin-bottom:2rem">
-      <p><code>torch.load()</code> called on user-controlled paths. <code>trust_remote_code=True</code> in HuggingFace pipelines. Jinja2 template injection inside <code>apply_chat_template()</code>. <code>ev<!-- -->al()</code> on LLM-generated strings.</p>
-    </div>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75;margin-bottom:1rem">These aren&rsquo;t hypothetical. They&rsquo;re patterns we found &mdash; confirmed, exploitable, in production frameworks used by thousands of teams.</p>
-    <p style="color:var(--muted);max-width:680px;line-height:1.75">Traditional SAST also stops at the file boundary. Real vulnerabilities don&rsquo;t. An SSRF that spans four files and three abstraction layers won&rsquo;t appear in a single-file regex scan. It requires tracking data flow across imports and function calls &mdash; and most tools don&rsquo;t do that.</p>
-  </div>
-</section>
-
-<section style="background:var(--surface)">
-  <div class="wrap">
-    <div class="section-label">Capabilities</div>
-    <h2>What Rowan does differently.</h2>
-    <div class="feature-grid">
-      <div class="feature-card"><span class="feature-num">1</span><h3>Cross-file taint analysis</h3><p>Tracks data flow across function and file boundaries. Follows user input through imports, function arguments, and return values to reach dangerous sinks &mdash; wherever they live in your codebase.</p></div>
-      <div class="feature-card"><span class="feature-num">2</span><h3>AI/ML-specific sink models</h3><p>Knows that <code>torch.load()</code>, <code>p<!-- -->ickle.loads()</code>, <code>dill.loads()</code>, <code>apply_chat_template()</code>, and <code>trust_remote_code=True</code> are dangerous. Models the full attack surface of SGLang, vLLM, LangChain, Letta, Gradio, and HuggingFace Transformers.</p></div>
-      <div class="feature-card"><span class="feature-num">3</span><h3>Reachability-aware SCA</h3><p>Doesn&rsquo;t just list every CVE in your dependencies. Builds a call graph from your actual entry points and only surfaces vulnerabilities your code can reach. Eliminates the noise.</p></div>
-      <div class="feature-card"><span class="feature-num">4</span><h3>Confidence scoring</h3><p>Every finding gets a 0&ndash;100% confidence score based on source clarity, path length, and sanitizers detected. Triage what matters first.</p></div>
-      <div class="feature-card"><span class="feature-num">5</span><h3>Autonomous hunt mode</h3><p>An 8-stage agentic pipeline that generates hypotheses, traces exploit chains, and confirms exploitability &mdash; without manual effort. Built on LangGraph.</p></div>
-      <div class="feature-card"><span class="feature-num">6</span><h3>CI/CD native</h3><p>Changed-file scanning, PR security gates, SARIF output, GitHub Actions template, webhook notifications. Fits into the workflow you already have.</p></div>
-    </div>
-  </div>
-</section>
-
-<section style="background:var(--bg)">
-  <div class="wrap">
-    <div class="section-label">Confirmed findings</div>
-    <h2>Real findings. Real codebases.</h2>
-    <p class="section-intro">Not synthetic test cases. Vulnerabilities found by Rowan in production frameworks, confirmed exploitable, and disclosed to maintainers.</p>
-    <div class="proof-section">
-      <div class="proof-block">
-        <div class="proof-block-header"><span class="proof-project">SGLang</span><span class="proof-date">April 2026</span></div>
-        <p class="proof-summary">One of the most widely deployed LLM inference frameworks. Three critical vulnerabilities &mdash; all missed by CodeQL and Semgrep, all allowing unauthenticated remote code execution.</p>
-        <div class="tbl-wrap"><table class="compare-table">
-          <thead><tr><th>Vulnerability</th><th>CVSS</th><th>Rowan</th><th>CodeQL</th><th>Semgrep</th></tr></thead>
-          <tbody>
-            <tr><td>SSTI via <code>chat_template_kwargs</code></td><td><span class="sev-badge sev-crit">10.0</span></td><td class="tick">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
-            <tr><td><code>dill.loads</code> deserialization in <code>CustomLogitProcessor</code></td><td><span class="sev-badge sev-high">8.1</span></td><td class="tick">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
-            <tr><td>ZMQ p<!-- -->ickle regression &mdash; incomplete CVE-2026-3060 patch</td><td><span class="sev-badge sev-crit">10.0</span></td><td class="tick">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td></tr>
-          </tbody>
-        </table></div>
-      </div>
-      <div class="proof-block">
-        <div class="proof-block-header"><span class="proof-project">Letta</span><span class="proof-date">May 2026</span></div>
-        <p class="proof-summary">Two critical remote code execution vulnerabilities. Both confirmed exploitable. Both missed by existing tooling.</p>
-        <ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem">
-          <li style="font-size:.9rem;color:var(--muted)"><code>ev<!-- -->al()</code> on LLM-controlled strings in the CLI interface</li>
-          <li style="font-size:.9rem;color:var(--muted)"><code>ex<!-- -->ec()</code> with full <code>__builtins__</code> access in the core tool executor</li>
-        </ul>
-      </div>
-      <div class="proof-block">
-        <div class="proof-block-header"><span class="proof-project">LangChain</span><span class="proof-date">CVE-2025-68664</span></div>
-        <p class="proof-summary">Rowan identified 58 instances of <code>langchain.loads()</code> across 1,697 files with 100% recall and zero false positives. The vulnerable function deserializes untrusted data into arbitrary Python objects. Cross-validated against the CVE ground truth.</p>
-      </div>
-    </div>
-    <div style="margin-top:2rem"><a href="benchmarks.html" class="btn btn-outline">Full benchmark details &rarr;</a></div>
-  </div>
-</section>
-
-<section style="background:var(--surface)">
-  <div class="wrap">
-    <div class="section-label">Architecture</div>
-    <h2>Four engines. One scan.</h2>
-    <div class="engine-grid">
-      <div class="engine-card"><div class="engine-name">CodeGuard</div><div class="engine-subtitle">Taint analysis</div><p>Inter-procedural taint analysis with control flow graphs. Tracks user input across file and function boundaries in Python, Java, JavaScript, Go, and C#.</p></div>
-      <div class="engine-card"><div class="engine-name">NeuroScan</div><div class="engine-subtitle">Pattern matching</div><p>125+ detection rules using tree-sitter AST matching. Fast, language-agnostic, no data-flow analysis required.</p></div>
-      <div class="engine-card"><div class="engine-name">DepGuard</div><div class="engine-subtitle">Supply chain</div><p>Supply chain scanning with reachability. Proves whether vulnerable dependency functions are reachable from your entry points before surfacing a finding.</p></div>
-      <div class="engine-card"><div class="engine-name">Huntr Agent</div><div class="engine-subtitle">Agentic analysis</div><p>LLM-powered agentic analysis. Generates attack hypotheses, traces multi-hop exploit chains, and confirms exploitability autonomously.</p></div>
-    </div>
-    <div style="margin-top:2rem"><a href="how-it-works.html" class="btn btn-outline">See full architecture &rarr;</a></div>
-  </div>
-</section>
-
-<section style="background:var(--bg)">
-  <div class="wrap">
-    <div class="section-label">Output</div>
-    <h2>Every format your team needs.</h2>
-    <div class="output-list" style="max-width:640px">
-      <div class="output-item"><span class="output-tag">JSON</span><span class="output-desc">Programmatic integration</span></div>
-      <div class="output-item"><span class="output-tag">SARIF 2.1</span><span class="output-desc">IDE and GitHub Advanced Security compatible</span></div>
-      <div class="output-item"><span class="output-tag">HTML</span><span class="output-desc">Shareable report for stakeholders</span></div>
-      <div class="output-item"><span class="output-tag">CSV</span><span class="output-desc">Import into your tracking system</span></div>
-      <div class="output-item"><span class="output-tag">CycloneDX AI-BOM</span><span class="output-desc">Supply chain attestation</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="rowan-cta">
-  <div class="wrap">
-    <h2>Get early access.</h2>
-    <p>Rowan is in private beta. We&rsquo;re working with AI infrastructure teams who want to find vulnerabilities before they ship.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="mailto:hello@hedgerow.dev" class="btn-hero-primary">Request Access</a>
-      <a href="docs.html" class="btn-hero-secondary">Read the docs</a>
-    </div>
+    <p class="section-label" style="color:rgba(255,255,255,.35)">Private beta</p>
+    <h2 style="color:#fff;font-size:clamp(1.6rem,3.5vw,2.4rem);max-width:560px">Rowan is in active development. We&rsquo;re onboarding AI infrastructure teams now.</h2>
+    <p style="color:rgba(255,255,255,.55);max-width:480px;margin:1.25rem 0 2.25rem;font-size:.95rem;line-height:1.75">Research report and diligence pack available under NDA.</p>
+    <a href="mailto:hello@hedgerow.dev" class="btn" style="background:#fff;color:var(--navy)">hello@hedgerow.dev</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div>
-      <div class="footer-brand">Rowan</div>
-      <div class="footer-sub">AI security scanner by Hedgerow.</div>
-      <div class="footer-links" style="justify-content:flex-start">
-        <a href="product.html">Product</a><a href="how-it-works.html">How it works</a>
-        <a href="benchmarks.html">Benchmarks</a><a href="docs.html">Docs</a>
-        <a href="../index.html">Hedgerow</a><a href="mailto:hello@hedgerow.dev">Contact</a>
+      <div class="footer-brand">Hedgerow</div>
+      <div class="footer-links" style="justify-content:flex-start;margin-top:.5rem">
+        <a href="../index.html">Home</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="../thicket/index.html">Thicket</a>
+        <a href="mailto:hello@hedgerow.dev">Contact</a>
       </div>
-    </div><div></div>
+    </div>
+    <div></div>
   </div>
-  <div class="wrap"><div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div></div>
+  <div class="wrap">
+    <div class="footer-patent">Hedgerow &middot; hedgerow.dev &middot; hello@hedgerow.dev<br>Commercially licensed. Technology protected by pending patent applications.</div>
+  </div>
 </footer>
+
 <script src="../nav.js" defer></script>
 </body>
 </html>
