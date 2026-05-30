@@ -2,34 +2,36 @@
 /* Fonts loaded via <link> in each HTML page (not @import) so CSP can apply SRI */
 
 :root {
-  /* Brand palette — Jenny Henderson Studio */
-  --midnight:  #013D5A;   /* primary dark */
-  --lionsmane: #FCF3E3;   /* primary background */
-  --celeste:   #BDD3CE;   /* secondary blue-green */
-  --herb:      #708C69;   /* secondary sage green */
-  --marigold:  #F4A25B;   /* secondary warm amber */
+  /* ── Hedgerow brand palette ── */
+  --midnight:    #013D5A;   /* primary anchor — Midnight blue */
+  --lionsmane:   #FCF3E3;   /* warm paper surface */
+  --moss-shadow: #374A30;   /* deep muted forest — Moss Shadow */
+  --stone-grey:  #8A857E;   /* warm neutral — Stone Grey */
+  --clay-warmth: #BA7650;   /* earthy terracotta — Clay Warmth */
 
   /* Surfaces */
-  --bg:      #FDFCF9;   /* near-white, barely warm */
-  --surface: #F4F1EB;   /* light warm grey */
-  --card:    #FCF3E3;   /* Lionsmane — used on cards */
-  --border:  #E2DACB;   /* warm border */
+  --bg:      #FDFCF9;   /* near-white page base */
+  --surface: #F3F0EB;   /* light warm section */
+  --card:    #FCF3E3;   /* Lionsmane — card surface */
+  --border:  #DDD8CF;   /* warm stone border */
 
-  /* Text — Midnight-derived */
-  --text:  #011E2D;   /* near-black, Midnight root */
-  --muted: #4A6368;   /* Celeste-influenced mid */
-  --faint: #93AEAD;   /* light Celeste */
+  /* Text */
+  --text:  #0D1A10;   /* near-black, moss-rooted */
+  --muted: #5C5852;   /* Stone Grey–derived mid */
+  --faint: #9E9890;   /* light Stone Grey */
 
-  /* Brand roles */
+  /* Brand roles — mapped to palette */
   --navy:       #013D5A;   /* Midnight */
   --navy-mid:   #024E72;
   --navy-light: #025F8A;
-  --sage:       #708C69;   /* Herb */
+  --sage:       #374A30;   /* Moss Shadow — section labels, accents */
+  --celeste:    #B8C4B5;   /* Moss Shadow light — soft surface accent */
+  --amber:      #BA7650;   /* Clay Warmth — warm highlight */
+  --marigold:   #BA7650;   /* Clay Warmth */
 
   /* Semantic */
-  --red:   #B83228;   /* danger — kept readable */
-  --green: #3A6B35;   /* success */
-  --amber: #F4A25B;   /* Marigold */
+  --red:   #B83228;
+  --green: #2E6830;
 }
 
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
@@ -88,7 +90,7 @@ section { padding:5.5rem 0 }
 /* ── Nav ── */
 nav {
   position:sticky; top:0; z-index:100;
-  background:rgba(253,252,249,0.93);
+  background:rgba(253,252,249,0.95);
   backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
   padding:0 2.5rem;
@@ -96,21 +98,40 @@ nav {
   height:4rem;
 }
 .nav-logo {
-  display:inline-flex; align-items:center; gap:.6rem;
-  font-weight:600; font-size:1rem;
-  color:var(--navy); text-decoration:none;
-  letter-spacing:-.01em; margin-right:auto;
+  display:inline-flex; align-items:center; gap:.75rem;
+  text-decoration:none; margin-right:auto;
   white-space:nowrap; flex-shrink:0;
 }
-.nav-logo .logo-word {
-  font-family:'Cormorant Garamond', Georgia, serif;
-  font-size:1.35rem; font-weight:600; font-style:italic;
-  color:var(--navy); letter-spacing:-.02em;
+
+/* ── "hr█." logo mark ── */
+.logo-mark {
+  font-family:'Avenir Next', 'Avenir', 'Century Gothic', 'Trebuchet MS', system-ui, sans-serif;
+  font-weight:700;
+  font-size:1.15rem;
+  letter-spacing:-.02em;
+  color:#0D1A10;   /* always near-black — logo is B&W */
+  display:inline-flex;
+  align-items:center;
+  gap:0;
+  line-height:1;
 }
+.logo-block {
+  display:inline-block;
+  width:1.55em;
+  height:0.68em;
+  background:currentColor;
+  margin:0 0.07em;
+  flex-shrink:0;
+  vertical-align:middle;
+  position:relative;
+  top:-.04em;
+}
+
 .nav-logo .logo-tag {
-  font-size:.7rem; font-weight:500; color:var(--sage);
-  letter-spacing:.06em; text-transform:uppercase;
-  border-left:1px solid var(--border); padding-left:.6rem; margin-left:.1rem;
+  font-family:'Avenir Next', 'Avenir', system-ui, sans-serif;
+  font-size:.62rem; font-weight:600; color:var(--sage);
+  letter-spacing:.1em; text-transform:uppercase;
+  border-left:1px solid var(--border); padding-left:.65rem;
 }
 .nav-links { display:flex; align-items:center; gap:2rem }
 nav a {
@@ -345,9 +366,9 @@ footer {
 }
 footer .wrap { display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:start }
 .footer-brand {
-  font-family:'Cormorant Garamond', Georgia, serif;
-  font-style:italic; font-size:1.5rem; font-weight:400;
-  color:#fff; margin-bottom:.4rem;
+  font-family:'Avenir Next', 'Avenir', 'Century Gothic', system-ui, sans-serif;
+  font-style:normal; font-size:1rem; font-weight:700;
+  letter-spacing:-.01em; color:#fff; margin-bottom:.4rem;
 }
 .footer-sub { color:rgba(255,255,255,.5); font-size:.82rem; margin-bottom:1.1rem }
 .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:flex-end }
@@ -425,7 +446,7 @@ footer a:hover { color:#fff }
 /* ── Mobile drawer ── */
 .nav-drawer {
   display:none; position:fixed; top:4rem; left:0; right:0;
-  background:rgba(253,252,249,.97);
+  background:rgba(253,252,249,.98);
   backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
   z-index:99; flex-direction:column;
