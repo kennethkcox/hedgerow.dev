@@ -34,7 +34,7 @@
 <section class="rowan-hero">
   <div class="wrap">
     <h1>Source code analysis that finds what general-purpose SAST misses.</h1>
-    <p class="hero-sub">Cross-file taint analysis and AI-specific sink models. Rowan understands that <code>torch.load()</code> is a code execution primitive. That <code>trust_remote_code=True</code> is a trust boundary. That the attack surface of an AI application is not the same as a web API.</p>
+    <p class="hero-sub"><code>torch.load()</code> is treated as a code execution primitive. <code>trust_remote_code=True</code> flags a trust boundary. The attack surface of an AI application is modelled explicitly &mdash; not inferred from web API patterns. Cross-file taint analysis across Python codebases.</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem">
       <a href="mailto:hello@hedgerow.dev" class="btn" style="background:#fff;color:var(--navy)">Request early access</a>
     </div>
