@@ -108,7 +108,67 @@ Montserrat is loaded from Google Fonts as the web fallback.
 - GitHub: `kennethkcox/hedgerow.dev`
 - Firebase project: `hedgerow-acc` (acceptance)
 - Contact: `hello@hedgerow.dev`
-- Deploy: push to `master` → GitHub Actions → Firebase Hosting
+
+---
+
+## Deployment
+
+### How to deploy
+
+**Every push to `master` deploys automatically.** No manual steps needed once a commit lands on master.
+
+```bash
+git add .
+git commit -m "your message"
+git push
+# → GitHub Actions runs deploy-acc.yml (~30 seconds)
+# → Live at https://hedgerow-acc.web.app
+```
+
+### Environment
+
+| Environment | Firebase project | URL | Trigger |
+|---|---|---|---|
+| Acceptance | `hedgerow-acc` | `https://hedgerow-acc.web.app` | push to `master` |
+
+### Check deployment status
+
+```bash
+# List recent runs
+gh run list --repo kennethkcox/hedgerow.dev --limit 5
+
+# Watch a specific run live
+gh run watch <run-id> --repo kennethkcox/hedgerow.dev
+
+# View logs if something failed
+gh run view <run-id> --repo kennethkcox/hedgerow.dev --log
+```
+
+### How the workflow works
+
+- File: `.github/workflows/deploy-acc.yml`
+- Action: `FirebaseExtended/action-hosting-deploy@v0`
+- Secret required: `FIREBASE_SERVICE_ACCOUNT_HEDGEROW_ACC` (already added to the GitHub repo)
+- Deploys to the `live` channel on `hedgerow-acc`
+- Node 24 opt-in set to suppress deprecation warnings
+
+### Firebase config files
+
+- `firebase.json` — defines the public directory (`.`), security headers, clean URLs, and ignore list
+- `.firebaserc` — maps `acc` and `default` aliases to `hedgerow-acc`
+
+### If a deploy fails
+
+1. Run `gh run list --repo kennethkcox/hedgerow.dev --limit 3` to get the run ID
+2. Run `gh run view <id> --repo kennethkcox/hedgerow.dev --log` to read the error
+3. Common causes: secret missing/expired, `firebase.json` syntax error, file too large
+
+### To add a production environment later
+
+1. Create a new Firebase project (e.g. `hedgerow-prod`)
+2. Add its service account as `FIREBASE_SERVICE_ACCOUNT_HEDGEROW_PROD` in GitHub secrets
+3. Copy `.github/workflows/deploy-acc.yml` to `deploy-prod.yml`, update `projectId` and secret name
+4. Add `"prod": "hedgerow-prod"` to `.firebaserc`
 
 ---
 
