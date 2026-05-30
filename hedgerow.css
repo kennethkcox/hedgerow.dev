@@ -56,6 +56,7 @@ h1 {
   font-weight:700;
   letter-spacing:-.02em;
   line-height:1.1;
+  margin-bottom:1.25rem;
   color:var(--navy);
 }
 h2 {
@@ -73,7 +74,7 @@ p:last-child { margin-bottom:0 }
 .section-label {
   display:inline-block;
   font-size:.68rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--sage); margin-bottom:.875rem;
+  color:var(--sage); margin-bottom:1.25rem;
 }
 .section-intro {
   font-size:1.05rem; color:var(--muted);
@@ -82,7 +83,7 @@ p:last-child { margin-bottom:0 }
 
 /* ── Layout ── */
 .wrap { max-width:1100px; margin:0 auto; padding:0 2.5rem }
-section { padding:5.5rem 0 }
+section { padding:4.5rem 0 }
 
 /* ── Nav ── */
 nav {
@@ -94,11 +95,16 @@ nav {
   display:flex; align-items:center; gap:2rem;
   height:4rem;
 }
-.nav-logo {
+.nav-logo-group {
   display:inline-flex; align-items:center; gap:.75rem;
-  text-decoration:none; margin-right:auto;
-  white-space:nowrap; flex-shrink:0;
+  margin-right:auto; white-space:nowrap; flex-shrink:0;
 }
+.nav-logo {
+  display:inline-flex; align-items:center;
+  text-decoration:none;
+  margin-right:auto;
+}
+.nav-logo-group .nav-logo { margin-right:0 }
 
 /* ── "hr█." logo mark ── */
 .logo-mark {
@@ -121,9 +127,12 @@ nav {
   flex-shrink:0;
 }
 
+.logo-tag-link { text-decoration:none }
+.logo-tag-link:hover .logo-tag,
+.logo-tag-link[aria-current="page"] .logo-tag { color:var(--navy); font-weight:600 }
 .nav-logo .logo-tag {
   font-family:'Inter', system-ui, sans-serif;
-  font-size:.62rem; font-weight:600; color:var(--sage);
+  font-size:.62rem; font-weight:600; color:var(--muted);
   letter-spacing:.1em; text-transform:uppercase;
   border-left:1px solid var(--border); padding-left:.65rem;
 }

@@ -12,7 +12,7 @@
   font-size:1.05rem;color:var(--muted);max-width:580px;line-height:1.8;margin-bottom:3rem;
 }
 .sp-claims {
-  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;row-gap:2rem;
   max-width:800px;padding-top:2.5rem;border-top:1px solid var(--border);
 }
 .sp-claim { display:flex;flex-direction:column;gap:.5rem }
